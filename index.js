@@ -6,7 +6,7 @@ const productRoutes = require('./routes/productRoutes');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
     origin: 'https://perlee-api.onrender.com/',
