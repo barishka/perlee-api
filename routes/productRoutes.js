@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const products = require('../data/products.json')
 
 /**
  * @swagger
@@ -82,29 +83,19 @@ const path = require('path');
 router.get('/products', (req, res) => {
     const { categoryId = 0, page = 1, limit = 20 } = req.query;
 
-    const filePath = path.join(__dirname, '../data/users.json');
+    let filteredProducts;
+    if (categoryId == 0) {
+        filteredProducts = products;
+    } else {
+        filteredProducts = products.filter(product => product.category.categoryId == categoryId);
+    }
+    
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Ошибка чтения данных' });
-        }
-
-        const products = JSON.parse(data);
-            
-        let filteredProducts;
-        if (categoryId == 0) {
-            filteredProducts = products;
-        } else {
-            filteredProducts = products.filter(product => product.category.categoryId == categoryId);
-        }
-        
-        const startIndex = (page - 1) * limit;
-        const endIndex = startIndex + limit;
-        const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-
-        res.json({
-            products: paginatedProducts,
-        });
+    res.json({
+        products: paginatedProducts,
     });
 });
 
@@ -172,26 +163,13 @@ router.get('/products', (req, res) => {
 router.get('/products/:id', (req, res) => {
     const productId = parseInt(req.params.id);
 
-    // Путь к файлу users.json
-    const filePath = path.join(__dirname, '../data/users.json');
-
-    // Чтение данных из файла
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ message: 'Ошибка чтения данных' });
-        }
-
-        const products = JSON.parse(data);
-
-
-        const product = products.find(p => p.id === productId);
-        
-        if (product) {
-            res.json({ product });
-        } else {
-            res.status(404).json({ message: 'Продукт не найден' });
-        }
-    });
+    const product = products.find(p => p.id === productId);
+    
+    if (product) {
+        res.json({ product });
+    } else {
+        res.status(404).json({ message: 'Продукт не найден' });
+    }
 });
 
 
