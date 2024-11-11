@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "price": 10.99,
+        "category": {
+            "categoryId": 1,
+            "categoryName": "Category 1"
+        },
+        "img": "http://example.com/image1.jpg",
+        "rate": 4.5,
+        "description": "Description of Product 1",
+        "ar_date": "2024-01-01",
+        "availability": true,
+        "reviews": [
+            {
+                "id": 1,
+                "userId": 1,
+                "rate": 5,
+                "productId": 1,
+                "text": "Great product!"
+            },
+            {
+                "id": 2,
+                "userId": 2,
+                "rate": 4,
+                "productId": 1,
+                "text": "Very good!"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "price": 20.49,
+        "category": {
+            "categoryId": 2,
+            "categoryName": "Category 2"
+        },
+        "img": "http://example.com/image2.jpg",
+        "rate": 4.0,
+        "description": "Description of Product 2",
+        "ar_date": "2024-01-02",
+        "availability": false,
+        "reviews": []
+    }
+]
