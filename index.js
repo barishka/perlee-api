@@ -6,7 +6,7 @@ const productRoutes = require('./routes/productRoutes');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 10000;
 
 app.use(cors()); // Включите CORS
 app.use(express.json());
