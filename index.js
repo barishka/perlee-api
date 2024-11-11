@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // Импортируйте cors
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const productRoutes = require('./routes/productRoutes');
@@ -7,11 +8,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors()); // Включите CORS
 app.use(express.json());
 
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.0', 
+    openapi: '3.0.0',
     info: {
       title: 'Perlee Documentation',
       version: '1.0.0',
@@ -23,7 +25,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./routes/*.js'], 
+  apis: ['./routes/*.js'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
